@@ -1,54 +1,40 @@
 const doNothing = () => {};
 
-class CalculatorUI {
-  constructor() {
-    const newCalculator = require("./calculator");
-    this._numberDisplayed = 0;
-    this.listener = doNothing;
-    this.calculator = newCalculator();
-  }
+const newCalculatorUI = () => {
+  const newCalculator = require("./calculator");
+  const calculator = newCalculator();
 
-  digitClicked(digit) {
-    this.numberDisplayed = this._numberDisplayed * 10 + digit;
-  }
+  return {
+    _numberDisplayed: 0,
+    listener: doNothing,
 
-  plusClicked() {
-    this.calculator.add(this._numberDisplayed);
-    this._numberDisplayed = 0;
-  }
+    digitClicked(digit) {
+      this.numberDisplayed = this._numberDisplayed * 10 + digit;
+    },
 
-  equalClicked() {
-    this.calculator.equal(this._numberDisplayed);
-    this.numberDisplayed = this.calculator.result;
-  }
+    plusClicked() {
+      calculator.add(this._numberDisplayed);
+      this._numberDisplayed = 0;
+    },
 
-  registerNumberDisplayedChangedListener(callback) {
-    this.listener = callback;
-  }
+    equalClicked() {
+      calculator.equal(this._numberDisplayed);
+      this.numberDisplayed = calculator.result;
+    },
 
-  set numberDisplayed(n) {
-    this._numberDisplayed = n;
-    this.listener(this._numberDisplayed);
-  }
+    registerNumberDisplayedChangedListener(callback) {
+      this.listener = callback;
+    },
 
-  get numberDisplayed() {
-    return this._numberDisplayed;
-  }
-}
+    set numberDisplayed(n) {
+      this._numberDisplayed = n;
+      this.listener(this._numberDisplayed);
+    },
 
-module.exports = CalculatorUI;
-
-/*
-const makeCalculatorUI = () => {
-  const digitClicked = (digit) => {
-    let num = calculatorUI.numberDisplayed;
-    calculatorUI.numberDisplayed = num * 10 + digit;
+    get numberDisplayed() {
+      return this._numberDisplayed;
+    },
   };
-
-  const calculatorUI = {
-    digitClicked,
-    numberDisplayed: 0,
-  };
-  return calculatorUI;
 };
-*/
+
+module.exports = newCalculatorUI;

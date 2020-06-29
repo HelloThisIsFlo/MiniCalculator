@@ -1,10 +1,10 @@
-let CalculatorUI = require("./calculatorUI");
+const newCalculatorUI = require("./calculatorUI");
 
 describe("CalculatorUI", () => {
   let calculatorUI;
 
   beforeEach(() => {
-    calculatorUI = new CalculatorUI();
+    calculatorUI = newCalculatorUI();
   });
 
   describe("Interactions with calculator", () => {
@@ -17,11 +17,11 @@ describe("CalculatorUI", () => {
     beforeEach(() => {
       jest.clearAllMocks();
       jest.mock("./calculator", () => () => mockCalculator);
-      calculatorUI = new CalculatorUI();
+      calculatorUI = newCalculatorUI();
     });
 
     afterEach(() => {
-      jest.unmock('./calculator')
+      jest.unmock("./calculator");
     });
 
     it("calls 'add' on calculator with number displayed when 'plus' clicked", () => {
