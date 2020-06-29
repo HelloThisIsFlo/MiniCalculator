@@ -1,12 +1,38 @@
-const CalculatorUI = require("./calculatorUI");
-const newCalculator = require("./calculator");
+let CalculatorUI = require("./calculatorUI");
 
 describe("CalculatorUI", () => {
   let calculatorUI;
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    calculatorUI = new CalculatorUI(newCalculator());
+    calculatorUI = new CalculatorUI();
+  });
+
+  describe("Interactions with calculator", () => {
+    const mockCalculator = {
+      add: jest.fn(),
+      equal: jest.fn(),
+      result: "MOCK_RESULT",
+    };
+
+    beforeEach(() => {
+      jest.clearAllMocks();
+      jest.mock("./calculator", () => () => mockCalculator);
+      calculatorUI = new CalculatorUI();
+    });
+
+    afterEach(() => {
+      jest.unmock('./calculator')
+    });
+
+    it("calls 'add' on calculator with number displayed when 'plus' clicked", () => {
+      calculatorUI.digitClicked(1);
+      calculatorUI.digitClicked(2);
+      calculatorUI.digitClicked(3);
+
+      calculatorUI.plusClicked();
+
+      expect(mockCalculator.add).toHaveBeenCalledWith(123);
+    });
   });
 
   it("should display 0 initially", () => {
@@ -76,6 +102,5 @@ describe("CalculatorUI", () => {
 
       expect(calculatorUI.numberDisplayed).toBe(firstNumber + 456);
     });
-
   });
 });

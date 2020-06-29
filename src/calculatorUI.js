@@ -1,10 +1,11 @@
 const doNothing = () => {};
 
 class CalculatorUI {
-  constructor(calculator) {
+  constructor() {
+    const newCalculator = require("./calculator");
     this._numberDisplayed = 0;
     this.listener = doNothing;
-    this.calculator = calculator;
+    this.calculator = newCalculator();
   }
 
   digitClicked(digit) {
