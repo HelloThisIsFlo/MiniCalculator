@@ -1,19 +1,24 @@
-class Calculator {
-  constructor() {
-    this.result = 0;
-    this.currentOp;
-  }
-  add(number) {
+const newCalculator = () => {
+  let currentOp;
+  let result = 0;
+
+  function add(number) {
     this.result += number;
-    this.currentOp = "add";
+    currentOp = "add";
   }
-  equal(number) {
-    if (this.currentOp === "add") {
+  function equal(number) {
+    if (currentOp === "add") {
       this.result += number;
     } else {
       this.result = number;
     }
   }
-}
 
-module.exports = Calculator;
+  return {
+    add,
+    equal,
+    result,
+  };
+};
+
+module.exports = newCalculator;

@@ -1,12 +1,12 @@
 const CalculatorUI = require("./calculatorUI");
-const Calculator = require("./calculator");
+const newCalculator = require("./calculator");
 
 describe("CalculatorUI", () => {
   let calculatorUI;
 
   beforeEach(() => {
     jest.clearAllMocks();
-    calculatorUI = new CalculatorUI(new Calculator());
+    calculatorUI = new CalculatorUI(newCalculator());
   });
 
   it("should display 0 initially", () => {
